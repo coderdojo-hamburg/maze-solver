@@ -15,7 +15,7 @@ boolean finish = false;
 boolean wayfinish = false;
 int g = 0;
 void setup() {
-  maze = loadImage("../resources/maze.jpg");
+  maze = loadImage("maze.jpg");
   size(500, 500);
   for(int xx = 0; xx < maze.width; xx++) {
     for(int yy = 0; yy < maze.height; yy++) {
