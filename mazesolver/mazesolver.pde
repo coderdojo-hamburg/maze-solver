@@ -137,6 +137,7 @@ void draw() {
               ap = false;
             }
           }
+          
           if (ap) {
             parent.append(i);
             x.append(x.get(i));
