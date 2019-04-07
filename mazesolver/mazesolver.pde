@@ -19,7 +19,7 @@ void setup() {
   size(500, 500);
   for (int xx = 0; xx < maze.width; xx++) {
     for (int yy = 0; yy < maze.height; yy++) {
-      if (red(maze.pixels[xx+yy*maze.width]) < 10) {
+      if (red(maze.pixels[xx+yy*maze.width]) < 100) {
         blockedx.append(xx);
         blockedy.append(yy);
       }
