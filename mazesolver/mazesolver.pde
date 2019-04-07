@@ -43,39 +43,6 @@ void draw() {
   } else {
   }
   while (!finish) {
-    for (int xx = 0; xx < width/ts; xx++) {
-      for (int yy = 0; yy < height/ts; yy++) {
-        noFill();
-        noStroke();
-        for (int i = 0; i < blockedx.size(); i++) {
-          if (blockedx.get(i) == xx && blockedy.get(i) == yy) {
-            fill(255, 0, 0);
-          }
-        }
-        for (int i = 0; i < x.size(); i++) {
-          if (x.get(i) == xx && y.get(i) == yy) {
-            fill(255);
-            if (blocked.size() < i) {
-              fill(0, 0, 222);
-            }
-          }
-          if (x.get(i) == goalx && y.get(i) == goaly && !finish) {
-
-            g = i;
-            finish = true;
-          }
-        }
-        if (goalx == xx && goaly == yy) {
-          fill(0, 255, 0);
-        }
-        for (int i = 0; i < wayx.size(); i++) {
-          if (wayx.get(i) == xx && wayy.get(i) == yy) {
-            fill(0, 0, 255);
-          }
-        }
-        rect(xx*ts, yy*ts, ts, ts);
-      }
-    }
     int s = x.size();
     boolean ap = true;
     if (!finish) {
@@ -153,11 +120,46 @@ void draw() {
               }
             }
             blocked.add(true);
+            if (x.get(i) == goalx && y.get(i) == goaly && !finish) {
+
+              g = i;
+              finish = true;
+            }
           }
         }
       }
     }
     renderd = s;
     println(renderd + ":" + (maze.width*maze.height-blockedx.size()));
+  }
+  for (int xx = 0; xx < width/ts; xx++) {
+    for (int yy = 0; yy < height/ts; yy++) {
+      noFill();
+      noStroke();
+      for (int i = 0; i < blockedx.size(); i++) {
+        if (blockedx.get(i) == xx && blockedy.get(i) == yy) {
+          fill(255, 0, 0);
+        }
+      }
+      for (int i = 0; i < x.size(); i++) {
+        if (x.get(i) == xx && y.get(i) == yy) {
+          fill(255);
+        }
+        if (x.get(i) == goalx && y.get(i) == goaly && !finish) {
+
+          g = i;
+          finish = true;
+        }
+      }
+      if (goalx == xx && goaly == yy) {
+        fill(0, 255, 0);
+      }
+      for (int i = 0; i < wayx.size(); i++) {
+        if (wayx.get(i) == xx && wayy.get(i) == yy) {
+          fill(0, 0, 255);
+        }
+      }
+      rect(xx*ts, yy*ts, ts, ts);
+    }
   }
 }
