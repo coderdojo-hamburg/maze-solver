@@ -36,10 +36,15 @@ void setup() {
 void draw() {
   background(0);
   if (finish) {
-    wayx.append(x.get(parent.get(g)));
-    wayy.append(y.get(parent.get(g)));
-    g = parent.get(g);
-    println(wayx.size());
+    while (!wayfinish) {
+      wayx.append(x.get(parent.get(g)));
+      wayy.append(y.get(parent.get(g)));
+      g = parent.get(g);
+      println(wayx.size());
+      if(g == 0) {
+        wayfinish = true;
+      }
+    }
   } else {
   }
   while (!finish) {
