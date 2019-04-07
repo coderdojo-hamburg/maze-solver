@@ -49,11 +49,16 @@ void draw() {
       for (int i = 0; i < blockedx.size(); i++) {
         if (blockedx.get(i) == xx && blockedy.get(i) == yy) {
           fill(255, 0, 0);
+          
         }
+        
       }
       for (int i = 0; i < x.size(); i++) {
         if (x.get(i) == xx && y.get(i) == yy) {
           fill(255);
+          if(blocked.size() < i) {
+            fill(0,0,222);
+          }
         }
         if (x.get(i) == goalx && y.get(i) == goaly && !finish) {
 
@@ -74,83 +79,81 @@ void draw() {
   }
   int s = x.size();
   boolean ap = true;
-  for (int l = 0; l < 60-frameRate; l++) {
-    if (!finish) {
-      for (int i = 0; i < s; i++) {
-        if (blocked.size() < i+1) {
+  if (!finish) {
+    for (int i = 0; i < s; i++) {
+      if (blocked.size() < i+1) {
+        ap = true;
+        if (x.get(i)+1 < width/ts) {
+          for (int o = 0; o < x.size(); o++) {
+            if (x.get(o) == x.get(i)+1 && y.get(o) == y.get(i)) {
+              ap = false;
+            }
+          }
+          for (int o = 0; o < blockedx.size(); o++) {
+            if (blockedx.get(o) == x.get(i)+1 && blockedy.get(o) == y.get(i)) {
+              ap = false;
+            }
+          }
+          if (ap) {
+            parent.append(i);
+            x.append(x.get(i)+1);
+            y.append(y.get(i));
+          }
           ap = true;
-          if (x.get(i)+1 < width/ts) {
+          if (y.get(i)+1 < height/ts) {
             for (int o = 0; o < x.size(); o++) {
-              if (x.get(o) == x.get(i)+1 && y.get(o) == y.get(i)) {
+              if (y.get(o) == y.get(i)+1 && x.get(o) == x.get(i)) {
                 ap = false;
               }
             }
             for (int o = 0; o < blockedx.size(); o++) {
-              if (blockedx.get(o) == x.get(i)+1 && blockedy.get(o) == y.get(i)) {
+              if (blockedx.get(o) == x.get(i) && blockedy.get(o) == y.get(i)+1) {
                 ap = false;
               }
             }
             if (ap) {
               parent.append(i);
-              x.append(x.get(i)+1);
+              x.append(x.get(i));
+              y.append(y.get(i)+1);
+            }
+          }
+          ap = true;
+          if (x.get(i)-1 > -1) {
+            for (int o = 0; o < x.size(); o++) {
+              if (x.get(o) == x.get(i)-1 && y.get(o) == y.get(i)) {
+                ap = false;
+              }
+            }
+            for (int o = 0; o < blockedx.size(); o++) {
+              if (blockedx.get(o) == x.get(i)-1 && blockedy.get(o) == y.get(i)) {
+                ap = false;
+              }
+            }
+            if (ap) {
+              parent.append(i);
+              x.append(x.get(i)-1);
               y.append(y.get(i));
             }
-            ap = true;
-            if (y.get(i)+1 < height/ts) {
-              for (int o = 0; o < x.size(); o++) {
-                if (y.get(o) == y.get(i)+1 && x.get(o) == x.get(i)) {
-                  ap = false;
-                }
-              }
-              for (int o = 0; o < blockedx.size(); o++) {
-                if (blockedx.get(o) == x.get(i) && blockedy.get(o) == y.get(i)+1) {
-                  ap = false;
-                }
-              }
-              if (ap) {
-                parent.append(i);
-                x.append(x.get(i));
-                y.append(y.get(i)+1);
-              }
-            }
-            ap = true;
-            if (x.get(i)-1 > -1) {
-              for (int o = 0; o < x.size(); o++) {
-                if (x.get(o) == x.get(i)-1 && y.get(o) == y.get(i)) {
-                  ap = false;
-                }
-              }
-              for (int o = 0; o < blockedx.size(); o++) {
-                if (blockedx.get(o) == x.get(i)-1 && blockedy.get(o) == y.get(i)) {
-                  ap = false;
-                }
-              }
-              if (ap) {
-                parent.append(i);
-                x.append(x.get(i)-1);
-                y.append(y.get(i));
-              }
-            }
-            ap = true;
-            if (y.get(i) > 0) {
-              for (int o = 0; o < x.size(); o++) {
-                if (y.get(o) == y.get(i)-1 && x.get(o) == x.get(i)) {
-                  ap = false;
-                }
-              }
-              for (int o = 0; o < blockedx.size(); o++) {
-                if (blockedx.get(o) == x.get(i) && blockedy.get(o) == y.get(i)-1) {
-                  ap = false;
-                }
-              }
-              if (ap) {
-                parent.append(i);
-                x.append(x.get(i));
-                y.append(y.get(i)-1);
-              }
-            }
-            blocked.add(true);
           }
+          ap = true;
+          if (y.get(i) > 0) {
+            for (int o = 0; o < x.size(); o++) {
+              if (y.get(o) == y.get(i)-1 && x.get(o) == x.get(i)) {
+                ap = false;
+              }
+            }
+            for (int o = 0; o < blockedx.size(); o++) {
+              if (blockedx.get(o) == x.get(i) && blockedy.get(o) == y.get(i)-1) {
+                ap = false;
+              }
+            }
+            if (ap) {
+              parent.append(i);
+              x.append(x.get(i));
+              y.append(y.get(i)-1);
+            }
+          }
+          blocked.add(true);
         }
       }
     }
